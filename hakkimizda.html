@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — Hakkımızda</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── MISSION / VISION ─── */
+    .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .mv-card { border-radius: 1.25rem; padding: 2.5rem; }
+    .mv-card.red { background: var(--red); color: #fff; }
+    .mv-card.light { background: var(--gray-50); border: 1px solid var(--gray-200); }
+    .mv-card .mv-icon { width: 56px; height: 56px; border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+    .mv-card.red .mv-icon { background: rgba(255,255,255,.15); color: #fff; }
+    .mv-card.light .mv-icon { background: var(--red-light); color: var(--red); }
+    .mv-card .mv-icon svg { width: 26px; height: 26px; }
+    .mv-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+    .mv-card p { line-height: 1.7; font-size: .95rem; }
+    .mv-card.red p { color: rgba(255,255,255,.85); }
+    .mv-card.light p { color: var(--gray-600); }
+
+    /* ─── TIMELINE ─── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--red), rgba(204,0,0,.1)); }
+    .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2.5rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -2.5rem; top: .25rem; width: 14px; height: 14px; background: var(--red); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--red); }
+    .timeline-year { font-size: .75rem; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .35rem; }
+    .timeline-title { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: .5rem; }
+    .timeline-desc { font-size: .9rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* ─── TEAM ─── */
+    .team-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 1.25rem; overflow: hidden; text-align: center; transition: box-shadow .4s, transform .4s; }
+    .team-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.1); transform: translateY(-4px); }
+    .team-card img { width: 100%; height: 260px; object-fit: cover; object-position: top; transition: transform .7s; }
+    .team-card:hover img { transform: scale(1.05); }
+    .team-card-body { padding: 1.5rem; }
+    .team-name { font-weight: 700; font-size: 1.1rem; color: var(--gray-900); margin-bottom: .25rem; }
+    .team-role { font-size: .85rem; color: var(--red); font-weight: 600; margin-bottom: .75rem; }
+    .team-bio { font-size: .85rem; color: var(--gray-500); line-height: 1.5; }
+
+    /* ─── VALUES ─── */
+    .value-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .value-num { font-size: 2.5rem; font-weight: 800; color: var(--gray-200); line-height: 1; flex-shrink: 0; width: 2.5rem; }
+    .value-body h4 { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: .35rem; }
+    .value-body p { font-size: .9rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* ─── GALLERY ─── */
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 240px 240px; gap: 1rem; }
+    .gallery-item { overflow: hidden; border-radius: 1rem; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item.tall { grid-row: span 2; }
+
+    /* ─── AWARDS ─── */
+    .award-card { display: flex; gap: 1.25rem; align-items: center; background: #fff; border: 1px solid var(--gray-200); border-radius: 1rem; padding: 1.5rem; transition: box-shadow .3s; }
+    .award-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .award-icon { width: 52px; height: 52px; background: var(--red-light); color: var(--red); border-radius: .875rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.5rem; }
+    .award-body h4 { font-weight: 700; color: var(--gray-900); margin-bottom: .2rem; }
+    .award-body p { font-size: .85rem; color: var(--gray-500); }
+
+    @media (max-width: 768px) {
+      .mv-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item.tall { grid-row: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">⚠️ Bu site eğitim amaçlı hazırlanmıştır. Resmi site için logo.com.tr adresini ziyaret ediniz.</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo"><span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span></a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&h=600&auto=format&fit=crop" alt="Logo Yazılım Merkez" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <span class="hero-badge">Hakkımızda</span>
+    <h1>Türkiye'nin Teknoloji<br>Öncüsü</h1>
+    <p>1984'ten bugüne kurumsal yazılımda liderlik, güven ve yenilik.</p>
+  </div>
+</div>
+
+<!-- STORY -->
+<section style="background:#fff">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center">
+      <div class="reveal">
+        <span class="section-label">Hikayemiz</span>
+        <h2 class="section-title">40 Yılda Bir Marka, Binlerce Başarı Hikayesi</h2>
+        <p style="color:var(--gray-600);line-height:1.8;margin-bottom:1.25rem">
+          1984 yılında İstanbul'da kurulan Logo Yazılım, o günden bu yana Türk iş dünyasının
+          dijitalleşmesine öncülük etmektedir. Başlangıçta küçük ve orta ölçekli işletmelere
+          yönelik muhasebe yazılımlarıyla yola çıkan şirketimiz, bugün kurumsal kaynak planlama,
+          insan kaynakları, iş analitiği ve bulut çözümlerinde 250.000'den fazla kullanıcıya hizmet vermektedir.
+        </p>
+        <p style="color:var(--gray-600);line-height:1.8;margin-bottom:2rem">
+          BIST'te halka açık olan Logo Yazılım, 180'den fazla yetkili iş ortağı ağı ve 1.500'ü
+          aşkın çalışanıyla Türkiye'nin her köşesinde, yurt dışında ise 15 ülkede varlığını sürdürmektedir.
+        </p>
+        <div style="display:flex;gap:3rem">
+          <div>
+            <div style="font-size:2rem;font-weight:800;color:var(--red)">1.500+</div>
+            <div style="font-size:.8rem;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Çalışan</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:800;color:var(--red)">15</div>
+            <div style="font-size:.8rem;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Ülke</div>
+          </div>
+          <div>
+            <div style="font-size:2rem;font-weight:800;color:var(--red)">BIST</div>
+            <div style="font-size:.8rem;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Halka Açık</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2" style="position:relative">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=700&h=520&auto=format&fit=crop" alt="Ekip" style="border-radius:1.5rem;box-shadow:0 24px 60px rgba(0,0,0,.12)" />
+        <div style="position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--red);color:#fff;border-radius:1rem;padding:1.25rem 1.75rem;box-shadow:0 8px 24px rgba(204,0,0,.35)">
+          <div style="font-size:1.75rem;font-weight:800">40+</div>
+          <div style="font-size:.8rem;font-weight:600;opacity:.85">Yıl Deneyim</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION / VISION -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Misyon & Vizyon</span>
+      <h2 class="section-title">Değerlerimiz ve Hedeflerimiz</h2>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card red reveal">
+        <div class="mv-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        </div>
+        <h3>Misyonumuz</h3>
+        <p>Türk iş dünyasının rekabet gücünü teknoloji ile artırmak; her ölçekteki işletmenin ihtiyaçlarına özel, güvenilir ve sürdürülebilir yazılım çözümleri sunmak.</p>
+      </div>
+      <div class="mv-card light reveal reveal-delay-1">
+        <div class="mv-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        </div>
+        <h3>Vizyonumuz</h3>
+        <p style="color:var(--gray-600)">Kurumsal yazılım alanında küresel ölçekte tanınan, Türkiye'nin teknoloji ihracatına liderlik eden, yapay zeka ve bulut çözümleriyle geleceği şekillendiren bir şirket olmak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section style="background:#fff">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:flex-start">
+      <div class="reveal">
+        <span class="section-label">Tarihçemiz</span>
+        <h2 class="section-title">Kilometre Taşlarımız</h2>
+        <p style="color:var(--gray-600);line-height:1.7;margin-bottom:2.5rem">40 yılı aşan köklü geçmişimizde her adım, daha güçlü bir yarının inşası için atıldı.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">1984</div>
+            <div class="timeline-title">Kuruluş</div>
+            <div class="timeline-desc">İstanbul'da küçük bir ofiste Logo Yazılım kuruldu. İlk muhasebe yazılımı piyasaya sürüldü.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">1992</div>
+            <div class="timeline-title">Logo Tiger Lansmanı</div>
+            <div class="timeline-desc">Orta ölçekli işletmeler için devrimsel Logo Tiger ticari yazılımı tanıtıldı.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2000</div>
+            <div class="timeline-title">Halka Arz — BIST</div>
+            <div class="timeline-desc">Logo Yazılım, Borsa İstanbul'da hisse senetlerini halka arz etti ve büyük yatırımcı ilgisi gördü.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2010</div>
+            <div class="timeline-title">Uluslararası Genişleme</div>
+            <div class="timeline-desc">Balkanlar, Orta Asya ve Orta Doğu'ya açılarak 15 ülkede operasyon başlatıldı.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2018</div>
+            <div class="timeline-title">Bulut & Yapay Zeka</div>
+            <div class="timeline-desc">Logo Mind ile yapay zeka destekli iş analitiği ve SaaS çözümleri portföye eklendi.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2024</div>
+            <div class="timeline-title">250.000 Kullanıcı</div>
+            <div class="timeline-desc">Aktif kullanıcı sayısı 250.000'i geçti; Türkiye'nin en büyük kurumsal yazılım ekosistemi inşa edildi.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1" style="display:flex;flex-direction:column;gap:1.25rem;margin-top:5rem">
+        <div class="award-card">
+          <div class="award-icon">🏆</div>
+          <div class="award-body">
+            <h4>Türkiye'nin En İyi İşverenlerinden</h4>
+            <p>Great Place to Work® 2023 Sertifikası</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">⭐</div>
+          <div class="award-body">
+            <h4>En İyi Yerli Yazılım Şirketi</h4>
+            <p>IDC Türkiye Ödülleri — 2022 & 2023</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">🌍</div>
+          <div class="award-body">
+            <h4>ISO 27001 Bilgi Güvenliği Sertifikası</h4>
+            <p>Uluslararası bilgi güvenliği standardı</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">📈</div>
+          <div class="award-body">
+            <h4>En Hızlı Büyüyen Teknoloji Şirketi</h4>
+            <p>Deloitte Technology Fast 50 — 2021</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">💡</div>
+          <div class="award-body">
+            <h4>Ar-Ge Mükemmellik Ödülü</h4>
+            <p>TÜBİTAK destekli 12 Ar-Ge projesi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Değerlerimiz</span>
+      <h2 class="section-title">Bizi Biz Yapan İlkeler</h2>
+    </div>
+    <div class="grid-2">
+      <div style="display:flex;flex-direction:column;gap:2.5rem">
+        <div class="value-item reveal">
+          <div class="value-num">01</div>
+          <div class="value-body">
+            <h4>Müşteri Odaklılık</h4>
+            <p>Her kararımızda müşterilerimizin başarısını ve memnuniyetini ön planda tutarız.</p>
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-1">
+          <div class="value-num">02</div>
+          <div class="value-body">
+            <h4>Yenilikçilik</h4>
+            <p>Teknolojinin sınırlarını sürekli zorlayarak müşterilerimize yarının çözümlerini bugünden sunarız.</p>
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-2">
+          <div class="value-num">03</div>
+          <div class="value-body">
+            <h4>Güvenilirlik</h4>
+            <p>40 yıllık tutarlı hizmet kalitesi ile kurumsal güvenin simgesi haline geldik.</p>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2.5rem">
+        <div class="value-item reveal">
+          <div class="value-num">04</div>
+          <div class="value-body">
+            <h4>Sürdürülebilirlik</h4>
+            <p>Çevresel ve sosyal sorumluluklarımızı iş stratejilerimizin merkezine koyarız.</p>
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-1">
+          <div class="value-num">05</div>
+          <div class="value-body">
+            <h4>Takım Ruhu</h4>
+            <p>1.500'den fazla çalışanımız tek bir amaç etrafında, birlikte ve güçlü çalışır.</p>
+          </div>
+        </div>
+        <div class="value-item reveal reveal-delay-2">
+          <div class="value-num">06</div>
+          <div class="value-body">
+            <h4>Şeffaflık</h4>
+            <p>Müşterilerimize, paydaşlarımıza ve çalışanlarımıza karşı her zaman açık ve dürüstüz.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Liderlik Ekibi</span>
+      <h2 class="section-title">Vizyoner Kadromuz</h2>
+    </div>
+    <div class="grid-4">
+      <div class="team-card reveal">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&auto=format&fit=crop" alt="Genel Müdür" />
+        <div class="team-card-body">
+          <div class="team-name">Özgür Yıldız</div>
+          <div class="team-role">Genel Müdür & CEO</div>
+          <div class="team-bio">20+ yıl teknoloji sektörü tecrübesiyle Logo'yu geleceğe taşıyor.</div>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=500&auto=format&fit=crop" alt="CFO" />
+        <div class="team-card-body">
+          <div class="team-name">Ayşe Demirci</div>
+          <div class="team-role">CFO</div>
+          <div class="team-bio">Finansal stratejiler ve yatırımcı ilişkileri konusunda 15 yıl deneyim.</div>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=500&auto=format&fit=crop" alt="CTO" />
+        <div class="team-card-body">
+          <div class="team-name">Murat Demir</div>
+          <div class="team-role">CTO</div>
+          <div class="team-bio">Yapay zeka ve bulut mimarisi alanlarında 200+ patent sahibi vizyoner teknoloji lideri.</div>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&auto=format&fit=crop" alt="CMO" />
+        <div class="team-card-body">
+          <div class="team-name">Selin Arslan</div>
+          <div class="team-role">CMO</div>
+          <div class="team-bio">Logo markasını ulusal ve uluslararası pazarlarda güçlendiren pazarlama stratejisti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Galeri</span>
+      <h2 class="section-title">Logo'dan Kareler</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=800&auto=format&fit=crop" alt="Ofis" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=340&auto=format&fit=crop" alt="Toplantı" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=340&auto=format&fit=crop" alt="Etkinlik" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=340&auto=format&fit=crop" alt="Eğitim" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=340&auto=format&fit=crop" alt="Çalışma" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--red);padding:5rem 0;text-align:center">
+  <div class="container reveal">
+    <h2 style="font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;color:#fff;margin-bottom:1rem">Bizimle Çalışmak İster misiniz?</h2>
+    <p style="color:rgba(255,255,255,.8);font-size:1.1rem;max-width:520px;margin:0 auto 2rem;line-height:1.7">Kariyer fırsatlarımızı keşfedin veya iş ortaklığı için bize ulaşın.</p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+      <a href="kariyer.html" class="btn btn-white">Kariyer Fırsatları →</a>
+      <a href="iletisim.html" class="btn btn-ghost">İletişime Geç</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div>
+        <h3>Ürünler</h3>
+        <ul>
+          <li><a href="urunler.html">Logo ERP</a></li>
+          <li><a href="urunler.html">Logo GO</a></li>
+          <li><a href="urunler.html">Logo Tiger</a></li>
+          <li><a href="urunler.html">Logo Mind</a></li>
+          <li><a href="urunler.html">Logo İnsan Kaynakları</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hızlı Linkler</h3>
+        <ul>
+          <li><a href="hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="haberler.html">Haberler</a></li>
+          <li><a href="kariyer.html">Kariyer</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>İletişim</h3>
+        <address>
+          <p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p>
+          <p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p>
+          <p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Gizlilik Politikası</a>
+        <a href="#">Kullanım Şartları</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

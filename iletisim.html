@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — İletişim</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── CONTACT LAYOUT ─── */
+    .contact-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: flex-start; }
+    .contact-form-box { background: #fff; border: 1px solid var(--gray-200); border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,.05); }
+    .contact-form-box h2 { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); margin-bottom: .5rem; }
+    .contact-form-box .subtitle { color: var(--gray-500); font-size: .95rem; margin-bottom: 2rem; line-height: 1.6; }
+
+    /* ─── INFO CARDS ─── */
+    .info-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 1.25rem; padding: 1.75rem; margin-bottom: 1.25rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: box-shadow .3s; }
+    .info-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .info-icon { width: 48px; height: 48px; background: var(--red-light); color: var(--red); border-radius: .875rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.25rem; }
+    .info-body h4 { font-size: .875rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .35rem; }
+    .info-body p, .info-body a { font-size: 1rem; color: var(--gray-900); font-weight: 600; line-height: 1.5; }
+    .info-body a:hover { color: var(--red); }
+    .info-body p.sub { font-size: .875rem; color: var(--gray-500); font-weight: 400; margin-top: .15rem; }
+
+    /* ─── OFFICES ─── */
+    .office-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: box-shadow .4s, transform .4s;
+    }
+    .office-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.1); transform: translateY(-4px); }
+    .office-card img { width: 100%; height: 200px; object-fit: cover; }
+    .office-card-body { padding: 1.5rem; }
+    .office-city { font-size: 1.1rem; font-weight: 800; color: var(--gray-900); margin-bottom: .35rem; }
+    .office-address { font-size: .875rem; color: var(--gray-500); line-height: 1.5; }
+    .office-tag { display: inline-block; background: var(--red); color: #fff; font-size: .7rem; font-weight: 700; padding: .2rem .65rem; border-radius: 99px; margin-bottom: .75rem; }
+
+    /* ─── MAP PLACEHOLDER ─── */
+    .map-placeholder { border-radius: 1.5rem; overflow: hidden; background: var(--gray-100); height: 360px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--gray-200); }
+    .map-placeholder p { color: var(--gray-400); font-size: 1rem; text-align: center; }
+
+    /* ─── SOCIAL ─── */
+    .social-links { display: flex; gap: .75rem; margin-top: 1rem; }
+    .social-link { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all .25s; color: var(--gray-600); text-decoration: none; }
+    .social-link:hover { background: var(--red); border-color: var(--red); color: #fff; transform: translateY(-2px); }
+
+    /* ─── FAQ ─── */
+    .faq-item { border-bottom: 1px solid var(--gray-200); }
+    .faq-trigger { width: 100%; padding: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; text-align: left; font-size: 1rem; font-weight: 700; color: var(--gray-900); gap: 1rem; }
+    .faq-trigger:hover { color: var(--red); }
+    .faq-arrow { width: 28px; height: 28px; background: var(--gray-100); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .8rem; color: var(--gray-600); flex-shrink: 0; transition: all .3s; }
+    .faq-item.open .faq-arrow { background: var(--red); color: #fff; transform: rotate(180deg); }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-item.open .faq-body { max-height: 300px; }
+    .faq-body p { padding-bottom: 1.25rem; color: var(--gray-600); line-height: 1.7; font-size: .95rem; }
+
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">⚠️ Bu site eğitim amaçlı hazırlanmıştır. Resmi site için logo.com.tr adresini ziyaret ediniz.</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo"><span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span></a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&h=600&auto=format&fit=crop" alt="İletişim" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <span class="hero-badge">İletişim</span>
+    <h1>Bize Ulaşın,<br>Hemen Cevap Verelim</h1>
+    <p>Demo talebi, fiyat teklifi veya her türlü sorunuz için buradayız.</p>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- FORM -->
+      <div>
+        <div class="contact-form-box reveal">
+          <h2>Bize Yazın</h2>
+          <p class="subtitle">Formu doldurun, çalışma saatleri içinde en geç 2 saat içinde size geri döneceğiz.</p>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ad Soyad <span>*</span></label>
+                <input type="text" name="name" placeholder="Ahmet Yılmaz" required />
+                <span class="error-msg">Bu alan zorunludur.</span>
+              </div>
+              <div class="form-group">
+                <label>Şirket</label>
+                <input type="text" name="company" placeholder="Şirket adı" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-posta <span>*</span></label>
+                <input type="email" name="email" placeholder="ahmet@sirket.com" required />
+                <span class="error-msg">Geçerli bir e-posta adresi girin.</span>
+              </div>
+              <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" name="phone" placeholder="+90 5xx xxx xx xx" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Konu <span>*</span></label>
+              <select name="topic" required>
+                <option value="">Konu seçin…</option>
+                <option>Demo Talebi</option>
+                <option>Fiyat Teklifi</option>
+                <option>Teknik Destek</option>
+                <option>İş Ortaklığı</option>
+                <option>Kariyer</option>
+                <option>Diğer</option>
+              </select>
+              <span class="error-msg">Lütfen bir konu seçin.</span>
+            </div>
+            <div class="form-group">
+              <label>İlgilendiğiniz Ürün</label>
+              <select name="product">
+                <option value="">Ürün seçin…</option>
+                <option>Logo ERP</option>
+                <option>Logo GO</option>
+                <option>Logo Tiger</option>
+                <option>Logo Mind</option>
+                <option>Logo İnsan Kaynakları</option>
+                <option>Tüm Ürünler</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Mesajınız <span>*</span></label>
+              <textarea name="message" placeholder="Merhaba, ürünleriniz hakkında bilgi almak istiyorum…" required></textarea>
+              <span class="error-msg">Bu alan zorunludur.</span>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1rem">
+              Mesajı Gönder →
+            </button>
+          </form>
+
+          <div id="form-success" class="form-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22,4 12,14.01 9,11.01"/>
+            </svg>
+            <h3>Mesajınız Alındı!</h3>
+            <p>En geç 2 iş saati içinde size geri döneceğiz. Teşekkür ederiz.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="reveal reveal-delay-1">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div class="info-body">
+            <h4>Merkez Ofis</h4>
+            <p>İstanbul Teknopark</p>
+            <p class="sub">Gebze, Kocaeli, Türkiye</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div class="info-body">
+            <h4>Telefon</h4>
+            <a href="tel:+902626488000">+90 262 648 80 00</a>
+            <p class="sub">Hafta içi 09:00–18:00</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div class="info-body">
+            <h4>E-posta</h4>
+            <a href="mailto:info@logo.com.tr">info@logo.com.tr</a>
+            <p class="sub">7/24 ulaşabilirsiniz</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🕐</div>
+          <div class="info-body">
+            <h4>Çalışma Saatleri</h4>
+            <p>Pazartesi – Cuma</p>
+            <p class="sub">09:00 – 18:00 (TSİ)</p>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div style="padding: 1.75rem;background:#fff;border:1px solid var(--gray-200);border-radius:1.25rem">
+          <h4 style="font-size:.875rem;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.25rem">Sosyal Medya</h4>
+          <p style="font-size:.875rem;color:var(--gray-700);margin-bottom:.75rem">Bizi takip edin, güncel kalın.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Ofislerimiz</span>
+      <h2 class="section-title">Türkiye Genelindeyiz</h2>
+    </div>
+    <div class="grid-4">
+      <div class="office-card reveal">
+        <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&h=260&auto=format&fit=crop" alt="İstanbul" />
+        <div class="office-card-body">
+          <div class="office-tag">Merkez</div>
+          <div class="office-city">İstanbul</div>
+          <div class="office-address">İstanbul Teknopark, Gebze, Kocaeli</div>
+        </div>
+      </div>
+      <div class="office-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1548613053-22087dd8edb8?w=400&h=260&auto=format&fit=crop" alt="Ankara" />
+        <div class="office-card-body">
+          <div class="office-tag">Ar-Ge Merkezi</div>
+          <div class="office-city">Ankara</div>
+          <div class="office-address">ODTÜ Teknokent, Çankaya, Ankara</div>
+        </div>
+      </div>
+      <div class="office-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1589561453171-9c6f0b5dfc17?w=400&h=260&auto=format&fit=crop" alt="İzmir" />
+        <div class="office-card-body">
+          <div class="office-tag">Bölge Ofisi</div>
+          <div class="office-city">İzmir</div>
+          <div class="office-address">Teknoloji Geliştirme Bölgesi, Konak</div>
+        </div>
+      </div>
+      <div class="office-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=400&h=260&auto=format&fit=crop" alt="Uluslararası" />
+        <div class="office-card-body">
+          <div class="office-tag">Uluslararası</div>
+          <div class="office-city">15 Ülke</div>
+          <div class="office-address">Balkanlar, Orta Asya, Orta Doğu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section style="background:var(--gray-50);padding-bottom:5rem">
+  <div class="container">
+    <div class="map-placeholder reveal">
+      <div>
+        <p style="font-size:2rem;margin-bottom:.5rem">🗺️</p>
+        <p>Harita yükleniyor…<br><small>Google Maps entegrasyonu için API key gereklidir.</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:#fff">
+  <div class="container" style="max-width:760px">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Sıkça Sorulan Sorular</span>
+      <h2 class="section-title">Merak Ettikleriniz</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          Demo talebimde ne kadar sürede geri dönersiniz?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-body"><p>Çalışma saatleri içinde gönderilen demo taleplerine en geç 2 saat içinde, mesai saatleri dışındakilere ise ertesi sabah ilk iş saatinde geri dönüş sağlıyoruz.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          Deneme sürümü ücretsiz mi?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-body"><p>Logo GO için 30 günlük ücretsiz deneme sürümü sunuyoruz. Diğer ürünler için uzman eşliğinde ücretsiz canlı demo düzenliyoruz.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          Mevcut sistemimizden geçiş desteği veriyor musunuz?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-body"><p>Evet. Deneyimli uygulama danışmanlarımız veri taşıma, sistem entegrasyonu ve kullanıcı eğitimleri dahil tam geçiş desteği sağlar.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          Teknik destek 7/24 mı?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-body"><p>Kurumsal lisans sahiplerimize 7/24 teknik destek sunulmaktadır. Standart lisanslarda destek haftaiçi 09:00–18:00 arasında verilmektedir.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          Bulut (SaaS) mı yoksa sunucu kurulumu mu tercih edilmeli?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-body"><p>Her iki seçeneği de sunuyoruz. Bulut modeli düşük başlangıç maliyeti ve otomatik güncellemeler sağlar; on-premise kurulum ise tam veri kontrolü isteyen işletmeler içindir. Uzmanlarımız ihtiyacınıza göre en uygun modeli önerir.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div><h3>Ürünler</h3><ul><li><a href="urunler.html">Logo ERP</a></li><li><a href="urunler.html">Logo GO</a></li><li><a href="urunler.html">Logo Tiger</a></li><li><a href="urunler.html">Logo Mind</a></li><li><a href="urunler.html">Logo İnsan Kaynakları</a></li></ul></div>
+      <div><h3>Hızlı Linkler</h3><ul><li><a href="hakkimizda.html">Hakkımızda</a></li><li><a href="haberler.html">Haberler</a></li><li><a href="kariyer.html">Kariyer</a></li><li><a href="iletisim.html">İletişim</a></li></ul></div>
+      <div><h3>İletişim</h3><address><p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p><p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p><p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p></address></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links"><a href="#">Gizlilik Politikası</a><a href="#">Kullanım Şartları</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  function toggleFaq(trigger) {
+    const item = trigger.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>

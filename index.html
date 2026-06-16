@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — Ana Sayfa</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── HOME SPECIFIC ─── */
+    .hero-section {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      animation: heroIn 1.2s ease forwards;
+      opacity: 0;
+    }
+    @keyframes heroIn { to { opacity: 1; } }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,.82) 0%, rgba(0,0,0,.55) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      animation: heroContent .9s ease .2s both;
+    }
+    @keyframes heroContent {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.05;
+      margin: 1.5rem 0 1.25rem;
+      letter-spacing: -.02em;
+    }
+    .hero-content h1 span { color: #ff4444; }
+    .hero-content p { font-size: 1.15rem; color: rgba(255,255,255,.85); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.7; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-float {
+      position: absolute;
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      backdrop-filter: blur(8px);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .hero-float-1 {
+      top: 25%; right: 6%;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero-float-2 {
+      bottom: 33%; right: 18%;
+      background: rgba(204,0,0,.75);
+      animation: float 5s ease-in-out 1s infinite;
+    }
+    .hero-float svg { width: 32px; height: 32px; color: #fff; }
+    .hero-float span { color: #fff; font-size: .75rem; font-weight: 700; line-height: 1.3; }
+    .scroll-indicator {
+      position: absolute; bottom: 2rem; left: 50%;
+      width: 24px; height: 40px;
+      border: 2px solid rgba(255,255,255,.4);
+      border-radius: 12px;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: .5rem;
+      animation: bounce 2s infinite;
+    }
+    .scroll-dot {
+      width: 6px; height: 12px;
+      background: rgba(255,255,255,.6);
+      border-radius: 3px;
+      animation: scrollAnim 2s infinite;
+    }
+    @keyframes scrollAnim {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+
+    /* Stats */
+    .stats-section { padding: 4rem 0; background: #fff; border-bottom: 1px solid var(--gray-200); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat-item { text-align: center; padding: 0 1.5rem; border-right: 1px solid var(--gray-200); }
+    .stat-item:last-child { border-right: none; }
+    .stat-number { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--red); margin-bottom: .25rem; }
+    .stat-label { font-size: .75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .08em; }
+
+    /* Marquee */
+    .marquee-section { padding: 2rem 0; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); overflow: hidden; }
+    .marquee-label { text-align: center; font-size: .7rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 1rem; }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 22s linear infinite; width: max-content; }
+    .marquee-track span { font-size: 1.1rem; font-weight: 700; color: var(--gray-400); white-space: nowrap; transition: color .2s; cursor: default; }
+    .marquee-track span:hover { color: var(--red); }
+
+    /* Products */
+    .products-section { background: #fff; }
+    .product-card { display: flex; flex-direction: column; }
+    .product-card-img { overflow: hidden; height: 200px; }
+    .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .product-card:hover .product-card-img img { transform: scale(1.08); }
+    .product-card-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .product-card-icon { width: 56px; height: 56px; background: var(--red-light); color: var(--red); border-radius: .75rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; transition: background .3s, color .3s; }
+    .product-card:hover .product-card-icon { background: var(--red); color: #fff; }
+    .product-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: .75rem; color: var(--gray-900); }
+    .product-card p { color: var(--gray-500); flex: 1; margin-bottom: 1.25rem; line-height: 1.6; }
+    .product-card a { color: var(--red); font-weight: 600; display: inline-flex; align-items: center; gap: .35rem; font-size: .9rem; }
+    .product-card a:hover { gap: .75rem; text-decoration: underline; }
+
+    /* Split */
+    .split-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .split-img { position: relative; overflow: hidden; }
+    .split-img img { width: 100%; height: 100%; object-fit: cover; min-height: 360px; }
+    .split-img-overlay { position: absolute; inset: 0; background: rgba(204,0,0,.2); }
+    .split-badge { position: absolute; bottom: 2rem; left: 2rem; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.15); max-width: 200px; }
+    .split-badge .year { font-size: 2rem; font-weight: 800; color: var(--red); }
+    .split-badge .year-label { font-size: .8rem; color: var(--gray-600); font-weight: 500; }
+    .split-content { background: var(--red); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 4rem; }
+    .split-content .section-label { color: rgba(255,255,255,.6); }
+    .split-content h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 1.25rem; line-height: 1.2; }
+    .split-content p { color: rgba(255,255,255,.8); line-height: 1.7; margin-bottom: 2rem; }
+
+    /* Testimonials */
+    .testimonial-wrapper { position: relative; max-width: 760px; margin: 0 auto; }
+    .testimonial-slide { position: absolute; inset: 0; }
+    .testimonial-slide:first-child { position: relative; }
+    .testimonial-box { background: var(--gray-50); border-radius: 1.5rem; padding: 3rem 3.5rem; border: 1px solid var(--gray-200); }
+    .testimonial-box p { font-size: 1.15rem; color: var(--gray-700); font-style: italic; line-height: 1.7; margin: 1.25rem 0 2rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .testimonial-author img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(204,0,0,.15); }
+    .author-name { font-weight: 700; color: var(--gray-900); }
+    .author-title { font-size: .875rem; color: var(--gray-500); }
+    .slider-dots { display: flex; justify-content: center; gap: .75rem; margin-top: 2rem; }
+    .slider-dot { width: 8px; height: 8px; border-radius: 4px; background: var(--gray-300); border: none; cursor: pointer; transition: all .3s; }
+    .slider-dot.active { width: 32px; background: var(--red); }
+
+    /* CTA */
+    .cta-section { position: relative; padding: 7rem 0; background: var(--gray-900); text-align: center; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .2; }
+    .cta-content { position: relative; z-index: 1; }
+    .cta-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; margin-bottom: 1rem; }
+    .cta-content p { color: rgba(255,255,255,.7); font-size: 1.1rem; max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .cta-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--gray-200); padding: 1rem; }
+      .stat-item:nth-child(2n) { border-right: none; }
+      .split-section { grid-template-columns: 1fr; }
+      .split-content { padding: 2.5rem 1.5rem; }
+      .testimonial-box { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  ⚠️ Dikkat: Bu site eğitim amaçlı hazırlanmıştır. Resmi Logo Yazılım sitesi için logo.com.tr adresini ziyaret ediniz.
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&auto=format&fit=crop" alt="Modern ofis" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-badge">Türkiye'nin #1 İş Yazılımı</span>
+    <h1>İşletmenizin<br><span>Dijital Gücü</span></h1>
+    <p>40 yılı aşkın deneyimimizle her ölçekten işletmenin dijital dönüşümüne liderlik ediyor, geleceğin teknolojilerini bugünden sunuyoruz.</p>
+    <div class="hero-btns">
+      <a href="urunler.html" class="btn btn-primary btn-lg">Çözümlerimizi Keşfedin →</a>
+      <a href="iletisim.html" class="btn btn-ghost btn-lg">Bize Ulaşın</a>
+    </div>
+  </div>
+  <!-- Floating badges -->
+  <div class="hero-float hero-float-1" style="display:flex">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span>%99.9<br>Uptime</span>
+  </div>
+  <div class="hero-float hero-float-2" style="display:flex">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span>180+ Ortak</span>
+  </div>
+  <div class="scroll-indicator"><div class="scroll-dot"></div></div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number"><span class="counter" data-target="250000">0</span>+</div>
+        <div class="stat-label">Aktif Kullanıcı</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number"><span class="counter" data-target="40">0</span>+</div>
+        <div class="stat-label">Yıl Deneyim</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number"><span class="counter" data-target="180">0</span>+</div>
+        <div class="stat-label">İş Ortağı</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number">%99.9</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <p class="marquee-label">250.000+ İşletmenin Güvendiği Marka</p>
+  <div class="marquee-track">
+    <span>Arçelik</span><span>Eczacıbaşı</span><span>Sabancı</span><span>Koç Grup</span>
+    <span>Türk Telekom</span><span>Garanti BBVA</span><span>Petkim</span><span>TAV</span>
+    <span>Arçelik</span><span>Eczacıbaşı</span><span>Sabancı</span><span>Koç Grup</span>
+    <span>Türk Telekom</span><span>Garanti BBVA</span><span>Petkim</span><span>TAV</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:4rem">
+      <span class="section-label">Çözümlerimiz</span>
+      <h2 class="section-title">İşletmeniz İçin Uçtan Uca Yazılım</h2>
+      <p class="section-subtitle">İhtiyacınız olan tüm iş süreçleri için entegre, güvenilir ve yenilikçi çözümler.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card product-card reveal">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=340&auto=format&fit=crop" alt="Logo ERP" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8,21 16,21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Logo ERP</h3>
+          <p>Kurumsal kaynak planlaması ile tüm iş süreçlerinizi tek platformda entegre edin, verimliliği artırın.</p>
+          <a href="urunler.html">Detaylı İncele →</a>
+        </div>
+      </div>
+      <div class="card product-card reveal reveal-delay-1">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=340&auto=format&fit=crop" alt="Logo IK" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Logo İnsan Kaynakları</h3>
+          <p>Bordro, performans ve işe alımı dijital ortamda şeffaf şekilde yönetin, çalışan deneyimini güçlendirin.</p>
+          <a href="urunler.html">Detaylı İncele →</a>
+        </div>
+      </div>
+      <div class="card product-card reveal reveal-delay-2">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=340&auto=format&fit=crop" alt="Logo Mind" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>Logo Mind</h3>
+          <p>Yapay zeka destekli iş analitiği ile verilerinizi stratejik kararlara dönüştürün, büyümeyi hızlandırın.</p>
+          <a href="urunler.html">Detaylı İncele →</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center reveal" style="margin-top:2.5rem">
+      <a href="urunler.html" class="btn btn-outline">Tüm Ürünleri Gör →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT -->
+<div class="split-section">
+  <div class="split-img">
+    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&h=600&auto=format&fit=crop" alt="Ofis" />
+    <div class="split-img-overlay"></div>
+    <div class="split-badge">
+      <div class="year">1984</div>
+      <div class="year-label">Yılından beri Türkiye'nin teknoloji öncüsü</div>
+    </div>
+  </div>
+  <div class="split-content">
+    <span class="section-label">Hakkımızda</span>
+    <h2>40 Yılda Binlerce İşletmeye Güç Kattık</h2>
+    <p>Logo Yazılım, 1984'te kuruluşundan bugüne Türkiye'nin en büyük yerli kurumsal yazılım şirketi olarak her işletmenin dijital dönüşümüne öncülük ediyor.</p>
+    <a href="hakkimizda.html" class="btn btn-white" style="width:fit-content">Hikayemizi Okuyun →</a>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3.5rem">
+      <span class="section-label">Referanslarımız</span>
+      <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
+    </div>
+    <div class="testimonial-wrapper reveal">
+      <div class="testimonial-slide">
+        <div class="testimonial-box">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p>"Logo ERP'ye geçtikten sonra üretim süreçlerimizde %40 verimlilik artışı sağladık. Türkiye pazarını en iyi bilen, güvenilir iş ortağı."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&auto=format&fit=crop" alt="Ahmet Yılmaz" />
+            <div><div class="author-name">Ahmet Yılmaz</div><div class="author-title">CFO, Akdeniz Üretim A.Ş.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-box">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p>"500 çalışanımızın tüm İK süreçlerini Logo ile hızlı ve hatasız şekilde yönetebiliyoruz. Destek ekibi her zaman yanımızda."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&auto=format&fit=crop" alt="Elif Kaya" />
+            <div><div class="author-name">Elif Kaya</div><div class="author-title">İK Direktörü, Yıldız Teknoloji</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-box">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <p>"Logo Mind sayesinde gerçek zamanlı veriye dayalı kararlar alabiliyoruz. Yatırımın geri dönüşü son derece hızlı oldu."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&auto=format&fit=crop" alt="Mehmet Çelik" />
+            <div><div class="author-name">Mehmet Çelik</div><div class="author-title">CTO, Delta Lojistik</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <button class="slider-dot"></button>
+      <button class="slider-dot"></button>
+      <button class="slider-dot"></button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <img class="cta-bg" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1400&h=600&auto=format&fit=crop" alt="" />
+  <div class="container cta-content reveal">
+    <h2>İşletmenizi Geleceğe Taşıyın</h2>
+    <p>İhtiyaçlarınıza en uygun Logo çözümünü bulmak için uzmanlarımızla konuşun.</p>
+    <div class="cta-btns">
+      <a href="iletisim.html" class="btn btn-primary btn-lg">Ücretsiz Demo Talep Et</a>
+      <a href="urunler.html" class="btn btn-ghost btn-lg">▶ Ürünleri İncele</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div>
+        <h3>Ürünler</h3>
+        <ul>
+          <li><a href="urunler.html">Logo ERP</a></li>
+          <li><a href="urunler.html">Logo GO</a></li>
+          <li><a href="urunler.html">Logo Tiger</a></li>
+          <li><a href="urunler.html">Logo Mind</a></li>
+          <li><a href="urunler.html">Logo İnsan Kaynakları</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hızlı Linkler</h3>
+        <ul>
+          <li><a href="hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="haberler.html">Haberler</a></li>
+          <li><a href="kariyer.html">Kariyer</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>İletişim</h3>
+        <address>
+          <p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p>
+          <p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p>
+          <p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Gizlilik Politikası</a>
+        <a href="#">Kullanım Şartları</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

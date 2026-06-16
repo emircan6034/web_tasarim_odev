@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — Ürünler</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── TABS ─── */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 1rem;
+      padding: .5rem;
+      margin-bottom: 3rem;
+    }
+    .tab-btn {
+      flex: 1 1 auto;
+      padding: .75rem 1.5rem;
+      font-size: .9rem;
+      font-weight: 700;
+      border-radius: .625rem;
+      border: none;
+      background: transparent;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all .25s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--red); background: #fff; }
+    .tab-btn.active { background: var(--red); color: #fff; box-shadow: 0 4px 12px rgba(204,0,0,.3); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── PRODUCT DETAIL ─── */
+    .product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .product-detail.reverse { direction: rtl; }
+    .product-detail.reverse > * { direction: ltr; }
+    .product-detail-img { border-radius: 1.5rem; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.12); }
+    .product-detail-img img { width: 100%; height: 360px; object-fit: cover; }
+    .product-features { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2rem; }
+    .feature-item { display: flex; align-items: flex-start; gap: .875rem; }
+    .feature-check { width: 22px; height: 22px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .feature-check::after { content: '✓'; color: #fff; font-size: .7rem; font-weight: 800; }
+    .feature-item p { font-size: .95rem; color: var(--gray-700); line-height: 1.5; }
+
+    /* ─── PRICING CARDS ─── */
+    .pricing-card { border-radius: 1.25rem; padding: 2.5rem; border: 2px solid var(--gray-200); position: relative; transition: all .3s; }
+    .pricing-card:hover { border-color: var(--red); box-shadow: 0 16px 48px rgba(204,0,0,.12); transform: translateY(-4px); }
+    .pricing-card.featured { background: var(--red); color: #fff; border-color: var(--red); }
+    .pricing-card.featured:hover { box-shadow: 0 16px 48px rgba(204,0,0,.35); }
+    .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #fff; color: var(--red); font-size: .75rem; font-weight: 800; padding: .3rem 1.25rem; border-radius: 99px; border: 2px solid var(--red); white-space: nowrap; }
+    .pricing-name { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+    .pricing-price { font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .pricing-price span { font-size: 1rem; font-weight: 500; opacity: .7; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
+    .pricing-features li { font-size: .875rem; display: flex; align-items: center; gap: .5rem; }
+    .pricing-features li::before { content: '✓'; font-weight: 800; color: var(--red); }
+    .pricing-card.featured .pricing-features li::before { color: rgba(255,255,255,.8); }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,.9); }
+    .pricing-card.featured .pricing-price { color: #fff; }
+
+    /* ─── COMPARE TABLE ─── */
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th { background: var(--gray-900); color: #fff; padding: 1rem 1.5rem; text-align: left; font-size: .85rem; font-weight: 700; }
+    .compare-table th:first-child { border-radius: .5rem 0 0 0; }
+    .compare-table th:last-child { border-radius: 0 .5rem 0 0; }
+    .compare-table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--gray-200); font-size: .9rem; vertical-align: middle; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: var(--gray-50); }
+    .compare-table td:first-child { font-weight: 600; color: var(--gray-800); }
+    .check-yes { color: #16a34a; font-weight: 800; font-size: 1.1rem; }
+    .check-no { color: var(--gray-300); font-size: 1.1rem; }
+
+    @media (max-width: 768px) {
+      .product-detail { grid-template-columns: 1fr; gap: 2rem; }
+      .product-detail.reverse { direction: ltr; }
+      .compare-table { font-size: .8rem; }
+      .compare-table td, .compare-table th { padding: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">⚠️ Bu site eğitim amaçlı hazırlanmıştır. Resmi site için logo.com.tr adresini ziyaret ediniz.</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo"><span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span></a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=600&auto=format&fit=crop" alt="Ürünler" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <span class="hero-badge">Ürünler</span>
+    <h1>İşletmenize Özel<br>Çözümler</h1>
+    <p>Küçük işletmelerden büyük şirketlere, her ihtiyaca uygun kurumsal yazılım ekosistemi.</p>
+  </div>
+</div>
+
+<!-- TABS -->
+<section style="background:#fff">
+  <div class="container">
+    <nav class="tabs-nav reveal" role="tablist">
+      <button class="tab-btn active" data-tab="erp" role="tab">Logo ERP</button>
+      <button class="tab-btn" data-tab="go" role="tab">Logo GO</button>
+      <button class="tab-btn" data-tab="tiger" role="tab">Logo Tiger</button>
+      <button class="tab-btn" data-tab="mind" role="tab">Logo Mind</button>
+      <button class="tab-btn" data-tab="ik" role="tab">Logo İnsan Kaynakları</button>
+    </nav>
+
+    <!-- ERP -->
+    <div id="tab-erp" class="tab-panel active">
+      <div class="product-detail">
+        <div class="product-detail-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=480&auto=format&fit=crop" alt="Logo ERP" />
+        </div>
+        <div>
+          <span class="section-label">Kurumsal Çözüm</span>
+          <h2 class="section-title">Logo ERP</h2>
+          <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Büyük ölçekli işletmeler için tasarlanmış, tüm iş süreçlerini tek çatı altında birleştiren kapsamlı kurumsal kaynak planlama platformu.</p>
+          <div class="product-features">
+            <div class="feature-item"><div class="feature-check"></div><p>Üretim, stok, satış ve finans modüllerinin tam entegrasyonu</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Gerçek zamanlı raporlama ve yönetim panoları</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Çok dilli ve çok para birimli uluslararası destek</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>REST API ile mevcut sistemlerle kolayca entegrasyon</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>7/24 teknik destek ve SLA güvencesi</p></div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="iletisim.html" class="btn btn-primary">Demo Talep Et</a>
+            <a href="iletisim.html" class="btn btn-outline">Fiyat Al</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GO -->
+    <div id="tab-go" class="tab-panel">
+      <div class="product-detail reverse">
+        <div class="product-detail-img">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&h=480&auto=format&fit=crop" alt="Logo GO" />
+        </div>
+        <div>
+          <span class="section-label">KOBİ Çözümü</span>
+          <h2 class="section-title">Logo GO</h2>
+          <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Küçük ve orta ölçekli işletmeler için bulut tabanlı, hızlı kurulumlu, kullanımı kolay iş yönetimi çözümü. Mobil uyumlu, her yerden erişim.</p>
+          <div class="product-features">
+            <div class="feature-item"><div class="feature-check"></div><p>15 dakikada kurulum, sıfır teknik bilgi gereksinimi</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>iOS & Android mobil uygulama desteği</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>e-Fatura, e-İrsaliye, e-Arşiv entegrasyonu</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Aylık abonelik modeli, düşük başlangıç maliyeti</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Otomatik güncelleme ve bulut yedekleme</p></div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="iletisim.html" class="btn btn-primary">Ücretsiz Deneyin</a>
+            <a href="iletisim.html" class="btn btn-outline">Fiyat Al</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIGER -->
+    <div id="tab-tiger" class="tab-panel">
+      <div class="product-detail">
+        <div class="product-detail-img">
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=700&h=480&auto=format&fit=crop" alt="Logo Tiger" />
+        </div>
+        <div>
+          <span class="section-label">Ticari Yazılım</span>
+          <h2 class="section-title">Logo Tiger</h2>
+          <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">30 yılı aşkın deneyimle geliştirilmiş, Türkiye'nin en köklü ticari yazılımı. Satış, satın alma ve stok yönetiminde tartışmasız lider.</p>
+          <div class="product-features">
+            <div class="feature-item"><div class="feature-check"></div><p>Güçlü stok yönetimi ve lot/seri takibi</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Çok depolu ve çok şubeli yapı desteği</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Gelişmiş fiyatlandırma ve kampanya motorları</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Barkod okuyucu ve POS entegrasyonu</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>250.000+ aktif lisans, kanıtlanmış güvenilirlik</p></div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="iletisim.html" class="btn btn-primary">Demo Talep Et</a>
+            <a href="iletisim.html" class="btn btn-outline">Fiyat Al</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIND -->
+    <div id="tab-mind" class="tab-panel">
+      <div class="product-detail reverse">
+        <div class="product-detail-img">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=700&h=480&auto=format&fit=crop" alt="Logo Mind" />
+        </div>
+        <div>
+          <span class="section-label">İş Analitiği & Yapay Zeka</span>
+          <h2 class="section-title">Logo Mind</h2>
+          <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Yapay zeka ve makine öğrenmesi destekli iş analitiği platformu. Verilerinizden anlamlı içgörüler çıkarın, geleceği tahmin edin.</p>
+          <div class="product-features">
+            <div class="feature-item"><div class="feature-check"></div><p>Sürükle bırak rapor tasarımcısı, sıfır kod</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Makine öğrenmesi ile talep tahmini ve anomali tespiti</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>300+ hazır KPI şablonu ve sektörel dashboard</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Excel, SQL, API ve Logo ürünleriyle native entegrasyon</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Mobil uyumlu, gerçek zamanlı bildirimler</p></div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="iletisim.html" class="btn btn-primary">Demo Talep Et</a>
+            <a href="iletisim.html" class="btn btn-outline">Fiyat Al</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IK -->
+    <div id="tab-ik" class="tab-panel">
+      <div class="product-detail">
+        <div class="product-detail-img">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&h=480&auto=format&fit=crop" alt="Logo IK" />
+        </div>
+        <div>
+          <span class="section-label">İnsan Kaynakları</span>
+          <h2 class="section-title">Logo İnsan Kaynakları</h2>
+          <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Çalışan yaşam döngüsünün tüm aşamalarını dijitalleştiren kapsamlı İK platformu. Bordrodan performansa, işe alımdan eğitime her şey bir arada.</p>
+          <div class="product-features">
+            <div class="feature-item"><div class="feature-check"></div><p>Otomatik bordro hesaplama ve yasal uyumluluk</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>360° performans değerlendirme sistemi</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>Çalışan self-servis portalı ve mobil uygulama</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>SGK, vergi ve yasal bildirim otomasyonu</p></div>
+            <div class="feature-item"><div class="feature-check"></div><p>İşe alım, onboarding ve eğitim yönetimi</p></div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="iletisim.html" class="btn btn-primary">Demo Talep Et</a>
+            <a href="iletisim.html" class="btn btn-outline">Fiyat Al</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Paketler</span>
+      <h2 class="section-title">İhtiyacınıza Uygun Plan Seçin</h2>
+      <p class="section-subtitle">Her ölçek ve sektör için esnek fiyatlandırma seçenekleri.</p>
+    </div>
+    <div class="grid-3" style="align-items:start">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Başlangıç</div>
+        <div class="pricing-price">₺1.499<span>/ay</span></div>
+        <ul class="pricing-features">
+          <li>5 kullanıcıya kadar</li>
+          <li>Temel muhasebe modülü</li>
+          <li>e-Fatura entegrasyonu</li>
+          <li>Mobil uygulama</li>
+          <li>E-posta destek</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-outline" style="width:100%;justify-content:center">Başla →</a>
+      </div>
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-badge">En Popüler</div>
+        <div class="pricing-name" style="color:#fff">Profesyonel</div>
+        <div class="pricing-price">₺3.999<span>/ay</span></div>
+        <ul class="pricing-features">
+          <li>25 kullanıcıya kadar</li>
+          <li>Tüm ticari modüller</li>
+          <li>Gelişmiş raporlama</li>
+          <li>API entegrasyonu</li>
+          <li>7/24 telefon destek</li>
+          <li>Özel eğitim</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-white" style="width:100%;justify-content:center">Başla →</a>
+      </div>
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-name">Kurumsal</div>
+        <div class="pricing-price">Özel<span> fiyat</span></div>
+        <ul class="pricing-features">
+          <li>Sınırsız kullanıcı</li>
+          <li>Tüm modüller + ERP</li>
+          <li>Yapay zeka analitiği</li>
+          <li>Özel entegrasyon geliştirme</li>
+          <li>SLA garantisi</li>
+          <li>Yerinde uygulama desteği</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary" style="width:100%;justify-content:center">Teklif Al →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Karşılaştırma</span>
+      <h2 class="section-title">Hangi Ürün Size Uygun?</h2>
+    </div>
+    <div style="overflow-x:auto" class="reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Özellik</th>
+            <th>Logo GO</th>
+            <th>Logo Tiger</th>
+            <th>Logo ERP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Kullanıcı Sayısı</td><td>1–10</td><td>5–100</td><td>Sınırsız</td></tr>
+          <tr><td>Muhasebe</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Stok Yönetimi</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Üretim Modülü</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Çok Şube</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Yapay Zeka Analitik</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-yes">✓</td></tr>
+          <tr><td>API Entegrasyonu</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>7/24 Destek</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--red);padding:5rem 0;text-align:center">
+  <div class="container reveal">
+    <h2 style="font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;color:#fff;margin-bottom:1rem">Hangi Ürünün Size Uygun Olduğundan Emin Değil misiniz?</h2>
+    <p style="color:rgba(255,255,255,.8);font-size:1.1rem;max-width:520px;margin:0 auto 2rem;line-height:1.7">Uzman ekibimiz ihtiyaçlarınızı dinleyerek size en uygun çözümü önerir.</p>
+    <a href="iletisim.html" class="btn btn-white btn-lg">Uzmanla Konuş →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div><h3>Ürünler</h3><ul><li><a href="urunler.html">Logo ERP</a></li><li><a href="urunler.html">Logo GO</a></li><li><a href="urunler.html">Logo Tiger</a></li><li><a href="urunler.html">Logo Mind</a></li><li><a href="urunler.html">Logo İnsan Kaynakları</a></li></ul></div>
+      <div><h3>Hızlı Linkler</h3><ul><li><a href="hakkimizda.html">Hakkımızda</a></li><li><a href="haberler.html">Haberler</a></li><li><a href="kariyer.html">Kariyer</a></li><li><a href="iletisim.html">İletişim</a></li></ul></div>
+      <div><h3>İletişim</h3><address><p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p><p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p><p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p></address></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links"><a href="#">Gizlilik Politikası</a><a href="#">Kullanım Şartları</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — Haberler</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      padding: .5rem 1.25rem;
+      border-radius: 99px;
+      border: 2px solid var(--gray-200);
+      background: #fff;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all .25s;
+    }
+    .filter-btn:hover { border-color: var(--red); color: var(--red); }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+    .search-wrapper {
+      margin-left: auto;
+      position: relative;
+    }
+    .search-wrapper input {
+      border: 2px solid var(--gray-200);
+      border-radius: 99px;
+      padding: .5rem 1rem .5rem 2.5rem;
+      font-size: .875rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      width: 220px;
+    }
+    .search-wrapper input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(204,0,0,.1); }
+    .search-wrapper::before { content: '🔍'; position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); font-size: .8rem; }
+
+    /* ─── NEWS GRID ─── */
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .news-card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: box-shadow .4s, transform .4s, border-color .3s;
+    }
+    .news-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.1); transform: translateY(-4px); border-color: rgba(204,0,0,.2); }
+    .news-card-img { overflow: hidden; height: 200px; }
+    .news-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .news-card:hover .news-card-img img { transform: scale(1.08); }
+    .news-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .news-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .news-date { font-size: .8rem; color: var(--gray-400); }
+    .news-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin-bottom: .75rem; line-height: 1.4; flex: 1; }
+    .news-card p { font-size: .875rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 1.25rem; }
+    .news-card a.read-more { font-size: .875rem; font-weight: 700; color: var(--red); display: inline-flex; align-items: center; gap: .35rem; }
+    .news-card a.read-more:hover { text-decoration: underline; }
+
+    /* ─── FEATURED NEWS ─── */
+    .featured-news {
+      background: var(--gray-900);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 3rem;
+    }
+    .featured-news img { width: 100%; height: 100%; object-fit: cover; min-height: 320px; }
+    .featured-news-body {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-news-body h2 { font-size: 1.75rem; font-weight: 800; color: #fff; margin: 1rem 0; line-height: 1.3; }
+    .featured-news-body p { color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 2rem; }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-box {
+      background: linear-gradient(135deg, var(--red) 0%, #990000 100%);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+    .newsletter-text h3 { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: .5rem; }
+    .newsletter-text p { color: rgba(255,255,255,.8); font-size: .95rem; }
+    .newsletter-form { display: flex; gap: .75rem; }
+    .newsletter-form input {
+      padding: .75rem 1.25rem;
+      border-radius: .75rem;
+      border: none;
+      font-size: .95rem;
+      font-family: inherit;
+      outline: none;
+      min-width: 250px;
+    }
+    .newsletter-form button {
+      padding: .75rem 1.75rem;
+      background: var(--gray-900);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      border: none;
+      border-radius: .75rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .newsletter-form button:hover { background: #000; }
+
+    @media (max-width: 1024px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .featured-news { grid-template-columns: 1fr; }
+      .featured-news img { min-height: 220px; }
+      .featured-news-body { padding: 2rem; }
+      .newsletter-box { flex-direction: column; }
+      .newsletter-form { flex-direction: column; width: 100%; }
+      .newsletter-form input { min-width: unset; width: 100%; }
+      .search-wrapper { margin-left: 0; width: 100%; }
+      .search-wrapper input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">⚠️ Bu site eğitim amaçlı hazırlanmıştır. Resmi site için logo.com.tr adresini ziyaret ediniz.</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo"><span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span></a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&h=600&auto=format&fit=crop" alt="Haberler" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <span class="hero-badge">Haberler & Duyurular</span>
+    <h1>Logo'dan<br>Son Gelişmeler</h1>
+    <p>Şirket haberleri, sektör analizleri ve teknoloji güncellemelerini takip edin.</p>
+  </div>
+</div>
+
+<!-- NEWS CONTENT -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+
+    <!-- Featured -->
+    <div class="featured-news reveal">
+      <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=700&h=500&auto=format&fit=crop" alt="Yapay Zeka" />
+      <div class="featured-news-body">
+        <span class="badge badge-red">Öne Çıkan</span>
+        <h2>Logo Mind 3.0: Yapay Zeka Destekli İş Analitiğinde Yeni Dönem</h2>
+        <p>Logo Mind'ın yeni sürümü, doğal dil işleme ve üretken yapay zeka teknolojileriyle iş analitiğini tamamen dönüştürüyor. Artık soru sormanız yeterli.</p>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <span style="color:rgba(255,255,255,.5);font-size:.8rem">15 Ocak 2025</span>
+          <span class="badge" style="background:rgba(255,255,255,.1);color:#fff">Ürün Güncelleme</span>
+          <a href="#" class="btn btn-white" style="margin-left:auto">Devamını Oku →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-cat="Tümü">Tümü</button>
+      <button class="filter-btn" data-cat="Şirket">Şirket Haberleri</button>
+      <button class="filter-btn" data-cat="Ürün">Ürün Güncelleme</button>
+      <button class="filter-btn" data-cat="Etkinlik">Etkinlikler</button>
+      <button class="filter-btn" data-cat="Sektör">Sektör Analizi</button>
+      <div class="search-wrapper">
+        <input type="search" id="news-search" placeholder="Haberlerde ara…" />
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="news-grid">
+
+      <div class="news-card reveal" data-cat="Şirket" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=600&h=340&auto=format&fit=crop" alt="Şirket" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-blue">Şirket</span><span class="news-date">10 Ocak 2025</span></div>
+          <h3>Logo Yazılım 2024 Yılı Mali Sonuçlarını Açıkladı</h3>
+          <p>Şirket, 2024 yılında geçen yıla kıyasla %42 gelir artışı ve rekor FAVÖK marjı elde etti. BIST'te güçlü performans sürdü.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-1" data-cat="Ürün" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=340&auto=format&fit=crop" alt="Logo GO" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-green">Ürün</span><span class="news-date">5 Ocak 2025</span></div>
+          <h3>Logo GO Mobil Uygulaması App Store'da 1 Milyon İndirmeyi Geçti</h3>
+          <p>KOBİ'lere yönelik bulut tabanlı Logo GO uygulaması, 1 milyon indirme barajını aşarak Türkiye'nin en çok indirilen iş uygulamaları arasına girdi.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-2" data-cat="Etkinlik" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=340&auto=format&fit=crop" alt="Etkinlik" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-yellow">Etkinlik</span><span class="news-date">20 Aralık 2024</span></div>
+          <h3>LogoWorld 2025 Zirvesi İstanbul'da Kapılarını Açıyor</h3>
+          <p>Türkiye'nin en büyük kurumsal yazılım zirvesi LogoWorld, 500'den fazla katılımcıyla 15 Mart 2025'te İstanbul Convention Center'da gerçekleşecek.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal" data-cat="Sektör" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=340&auto=format&fit=crop" alt="Sektör" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-purple">Sektör</span><span class="news-date">12 Aralık 2024</span></div>
+          <h3>2025'te Kurumsal Yazılım Trendleri: Yapay Zeka ve Otomasyon Önde</h3>
+          <p>IDC Türkiye'nin raporuna göre 2025 yılında yapay zeka entegreli ERP çözümlerine yatırım %85 artacak. Logo bu trende hazır.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-1" data-cat="Şirket" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=340&auto=format&fit=crop" alt="Ortaklık" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-blue">Şirket</span><span class="news-date">5 Aralık 2024</span></div>
+          <h3>Logo ve Microsoft Türkiye Stratejik Ortaklık Anlaşması İmzaladı</h3>
+          <p>Logo Yazılım ile Microsoft Türkiye, Azure bulut altyapısı üzerinde kurumsal yazılım çözümlerini entegre etmek için iş birliği protokolü imzaladı.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-2" data-cat="Etkinlik" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=340&auto=format&fit=crop" alt="Ödül" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-yellow">Etkinlik</span><span class="news-date">28 Kasım 2024</span></div>
+          <h3>Logo, IDC Türkiye'den "Yılın ERP Şirketi" Ödülünü Aldı</h3>
+          <p>Uluslararası araştırma firması IDC Türkiye, Logo Yazılım'ı 2024 yılının en iyi ERP çözüm sağlayıcısı olarak seçti ve yılın en prestijli ödülünü verdi.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal" data-cat="Ürün" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=340&auto=format&fit=crop" alt="Güvenlik" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-green">Ürün</span><span class="news-date">14 Kasım 2024</span></div>
+          <h3>Logo ERP'ye SOC 2 Type II Güvenlik Sertifikası</h3>
+          <p>Logo ERP, uluslararası SOC 2 Type II güvenlik denetimini başarıyla tamamladı. Müşteri verilerinin güvenliği en üst düzey standartla güvence altında.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-1" data-cat="Sektör" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=340&auto=format&fit=crop" alt="Eğitim" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-purple">Sektör</span><span class="news-date">2 Kasım 2024</span></div>
+          <h3>Dijital Dönüşümde İnsan Faktörü: Logo'dan Ücretsiz Eğitim Serisi</h3>
+          <p>Logo Akademi, KOBİ sahiplerine yönelik "Dijital İşletme Yönetimi" sertifika programı başlattı. İlk 1.000 kayıt ücretsiz.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+      <div class="news-card reveal reveal-delay-2" data-cat="Şirket" style="flex-direction:column">
+        <div class="news-card-img"><img src="https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=600&h=340&auto=format&fit=crop" alt="Ofis" /></div>
+        <div class="news-card-body">
+          <div class="news-meta"><span class="badge badge-blue">Şirket</span><span class="news-date">18 Ekim 2024</span></div>
+          <h3>Logo Yazılım Ankara'daki Yeni Ar-Ge Merkezini Açtı</h3>
+          <p>200 yazılım mühendisine ev sahipliği yapacak Ankara Ar-Ge merkezi açıldı. Türkiye'nin teknoloji ihracatına katkı hedefleniyor.</p>
+          <a href="#" class="read-more">Devamını Oku →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter-box reveal">
+      <div class="newsletter-text">
+        <h3>Haberlere Abone Olun</h3>
+        <p>Her ay en önemli gelişmeleri, ürün güncellemelerini ve sektör haberlerini e-postanıza göndeririz.</p>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" placeholder="E-posta adresiniz" />
+        <button>Abone Ol</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div><h3>Ürünler</h3><ul><li><a href="urunler.html">Logo ERP</a></li><li><a href="urunler.html">Logo GO</a></li><li><a href="urunler.html">Logo Tiger</a></li><li><a href="urunler.html">Logo Mind</a></li><li><a href="urunler.html">Logo İnsan Kaynakları</a></li></ul></div>
+      <div><h3>Hızlı Linkler</h3><ul><li><a href="hakkimizda.html">Hakkımızda</a></li><li><a href="haberler.html">Haberler</a></li><li><a href="kariyer.html">Kariyer</a></li><li><a href="iletisim.html">İletişim</a></li></ul></div>
+      <div><h3>İletişim</h3><address><p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p><p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p><p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p></address></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links"><a href="#">Gizlilik Politikası</a><a href="#">Kullanım Şartları</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo Yazılım — Kariyer</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── BENEFITS ─── */
+    .benefit-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      text-align: center;
+      transition: box-shadow .4s, transform .4s, border-color .3s;
+    }
+    .benefit-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.09); transform: translateY(-4px); border-color: rgba(204,0,0,.2); }
+    .benefit-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: .5rem; }
+    .benefit-card p { font-size: .875rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* ─── ACCORDION ─── */
+    .accordion { display: flex; flex-direction: column; gap: .75rem; }
+    .accordion-item {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: box-shadow .3s, border-color .3s;
+    }
+    .accordion-item.open { border-color: var(--red); box-shadow: 0 8px 24px rgba(204,0,0,.12); }
+    .accordion-trigger {
+      width: 100%;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .accordion-trigger-left { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .accordion-title { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); }
+    .accordion-item.open .accordion-title { color: var(--red); }
+    .accordion-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .accordion-arrow {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .25s, transform .35s;
+      font-size: 1rem;
+      color: var(--gray-600);
+    }
+    .accordion-item.open .accordion-arrow { background: var(--red); color: #fff; transform: rotate(180deg); }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .3s ease;
+      padding: 0 1.75rem;
+    }
+    .accordion-item.open .accordion-body { max-height: 800px; padding-bottom: 1.75rem; }
+    .job-detail h4 { font-size: .875rem; font-weight: 700; color: var(--gray-700); margin: 1rem 0 .5rem; text-transform: uppercase; letter-spacing: .06em; }
+    .job-detail ul { list-style: disc; padding-left: 1.5rem; display: flex; flex-direction: column; gap: .35rem; }
+    .job-detail ul li { font-size: .9rem; color: var(--gray-600); }
+    .job-apply { margin-top: 1.5rem; }
+
+    /* ─── LIFE AT LOGO ─── */
+    .life-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 200px 200px; gap: 1rem; }
+    .life-item { border-radius: 1rem; overflow: hidden; }
+    .life-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .life-item:hover img { transform: scale(1.06); }
+    .life-item.wide { grid-column: span 2; }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip { background: var(--red); padding: 3rem 0; }
+    .stats-strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .strip-stat { text-align: center; padding: 1rem; border-right: 1px solid rgba(255,255,255,.2); }
+    .strip-stat:last-child { border-right: none; }
+    .strip-num { font-size: 2.5rem; font-weight: 800; color: #fff; }
+    .strip-label { font-size: .75rem; font-weight: 600; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: .08em; margin-top: .25rem; }
+
+    @media (max-width: 768px) {
+      .life-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .life-item.wide { grid-column: span 1; }
+      .stats-strip-grid { grid-template-columns: repeat(2, 1fr); }
+      .strip-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); }
+      .strip-stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.2); }
+      .strip-stat:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">⚠️ Bu site eğitim amaçlı hazırlanmıştır. Resmi site için logo.com.tr adresini ziyaret ediniz.</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo"><span class="logo-red">LOGO</span><span class="logo-dark">Yazılım</span></a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="urunler.html">Ürünler</a>
+      <a href="haberler.html">Haberler</a>
+      <a href="kariyer.html">Kariyer</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="iletisim.html" class="nav-btn">Demo Talep Et</a>
+    </div>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="urunler.html">Ürünler</a>
+    <a href="haberler.html">Haberler</a>
+    <a href="kariyer.html">Kariyer</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="mob-cta">Demo Talep Et</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&h=600&auto=format&fit=crop" alt="Kariyer" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <span class="hero-badge">Kariyer</span>
+    <h1>Logo'da Kariyer<br>Fırsatları</h1>
+    <p>1.500+ yetenekli insanla birlikte Türkiye'nin teknoloji geleceğini inşa edin.</p>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-strip-grid">
+      <div class="strip-stat">
+        <div class="strip-num"><span class="counter" data-target="1500">0</span>+</div>
+        <div class="strip-label">Çalışan</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-num"><span class="counter" data-target="65">0</span>%</div>
+        <div class="strip-label">Mühendis Oranı</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-num"><span class="counter" data-target="28">0</span></div>
+        <div class="strip-label">Ortalama Yaş</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-num"><span class="counter" data-target="40">0</span>%</div>
+        <div class="strip-label">Kadın Çalışan</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY LOGO -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Neden Logo?</span>
+      <h2 class="section-title">Logo'da Çalışmanın Ayrıcalıkları</h2>
+      <p class="section-subtitle">Teknoloji meraklısı, inovatif ve tutkulu insanlar için eşsiz bir çalışma ortamı.</p>
+    </div>
+    <div class="grid-4">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🚀</div>
+        <h3>Hızlı Kariyer Gelişimi</h3>
+        <p>Açık kariyer yolları ve bireysel gelişim planları ile hızlı büyüme fırsatı.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-1">
+        <div class="benefit-icon">💡</div>
+        <h3>Yenilikçi Projeler</h3>
+        <p>Yapay zeka, bulut ve büyük veri alanlarında Türkiye'yi şekillendiren projelerde çalış.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-2">
+        <div class="benefit-icon">🎓</div>
+        <h3>Sürekli Eğitim</h3>
+        <p>Logo Akademi, Udemy kurumsal lisans, uluslararası konferans ve sertifika bütçesi.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-3">
+        <div class="benefit-icon">🏠</div>
+        <h3>Esnek Çalışma</h3>
+        <p>Hibrit model, esnek saat seçeneği ve dengelenmiş iş-yaşam politikaları.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">💰</div>
+        <h3>Rekabetçi Ücret</h3>
+        <p>Sektör ortalamasının üzerinde maaş, performans primi ve hisse senedi planı.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-1">
+        <div class="benefit-icon">🏥</div>
+        <h3>Özel Sağlık Sigortası</h3>
+        <p>Kapsamlı özel sağlık sigortası, diş ve göz desteği — aile bireylerini kapsıyor.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-2">
+        <div class="benefit-icon">🌍</div>
+        <h3>Uluslararası Deneyim</h3>
+        <p>15 ülkedeki ofislerde rotasyon ve uluslararası proje fırsatları.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-3">
+        <div class="benefit-icon">🎮</div>
+        <h3>Sosyal Etkinlikler</h3>
+        <p>Hackathon, teknik talks, takım gezileri, yıllık şirket partisi ve spor kulüpleri.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN POSITIONS -->
+<section style="background:var(--gray-50)">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Açık Pozisyonlar</span>
+      <h2 class="section-title">Seni Bekliyoruz</h2>
+      <p class="section-subtitle">Aşağıdaki pozisyonlardan sana uygun olanı tıkla ve başvurunu tamamla.</p>
+    </div>
+    <div class="accordion reveal">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <div class="accordion-trigger-left">
+            <span class="accordion-title">Senior Backend Geliştirici (Java)</span>
+            <div class="accordion-tags">
+              <span class="badge badge-red">Mühendislik</span>
+              <span class="badge badge-gray">İstanbul / Hibrit</span>
+              <span class="badge badge-green">Tam Zamanlı</span>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <div class="job-detail">
+            <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Logo ERP'nin çekirdek modüllerini geliştiren ekibimize katılacak deneyimli bir backend mühendisi arıyoruz.</p>
+            <h4>Aranan Nitelikler</h4>
+            <ul>
+              <li>5+ yıl Java ve Spring Boot deneyimi</li>
+              <li>Mikroservis mimarisi ve Kubernetes bilgisi</li>
+              <li>PostgreSQL / Oracle veritabanı tecrübesi</li>
+              <li>REST API ve event-driven mimari deneyimi</li>
+            </ul>
+            <h4>Sorumluluklar</h4>
+            <ul>
+              <li>Yüksek trafikli ERP modüllerinin geliştirilmesi ve bakımı</li>
+              <li>Code review ve teknik dokümantasyon</li>
+              <li>Çapraz fonksiyonlu ekiplerle iş birliği</li>
+            </ul>
+          </div>
+          <div class="job-apply">
+            <a href="iletisim.html" class="btn btn-primary">Hemen Başvur →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <div class="accordion-trigger-left">
+            <span class="accordion-title">Frontend Geliştirici (React / TypeScript)</span>
+            <div class="accordion-tags">
+              <span class="badge badge-red">Mühendislik</span>
+              <span class="badge badge-gray">İstanbul / Uzak</span>
+              <span class="badge badge-green">Tam Zamanlı</span>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <div class="job-detail">
+            <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Logo'nun web ürünleri için modern, hızlı ve erişilebilir arayüzler geliştiriyoruz. Takımımıza katılmak ister misin?</p>
+            <h4>Aranan Nitelikler</h4>
+            <ul>
+              <li>3+ yıl React ve TypeScript deneyimi</li>
+              <li>State management (Redux, Zustand veya benzeri)</li>
+              <li>Web performans optimizasyonu bilgisi</li>
+              <li>Figma ile çalışma deneyimi</li>
+            </ul>
+            <h4>Sorumluluklar</h4>
+            <ul>
+              <li>Logo web ürünlerinin UI bileşenlerinin geliştirilmesi</li>
+              <li>Tasarım ekibiyle sıkı iş birliği</li>
+              <li>Performans optimizasyonu ve test yazımı</li>
+            </ul>
+          </div>
+          <div class="job-apply">
+            <a href="iletisim.html" class="btn btn-primary">Hemen Başvur →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <div class="accordion-trigger-left">
+            <span class="accordion-title">Yapay Zeka / ML Mühendisi</span>
+            <div class="accordion-tags">
+              <span class="badge badge-purple">Yapay Zeka</span>
+              <span class="badge badge-gray">İstanbul</span>
+              <span class="badge badge-green">Tam Zamanlı</span>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <div class="job-detail">
+            <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Logo Mind ekibinde yapay zeka ve makine öğrenmesi modellerini geliştirip ürünleştireceğiz. Yüksek etkili rol.</p>
+            <h4>Aranan Nitelikler</h4>
+            <ul>
+              <li>Python, TensorFlow veya PyTorch deneyimi</li>
+              <li>NLP, zaman serisi analizi veya LLM fine-tuning</li>
+              <li>MLOps ve model deployment bilgisi</li>
+              <li>Akademik yayın veya Kaggle puanı avantajdır</li>
+            </ul>
+            <h4>Sorumluluklar</h4>
+            <ul>
+              <li>İş analitiği modellerinin geliştirilmesi</li>
+              <li>Veri boruhattı ve özellik mühendisliği</li>
+              <li>Üretim ortamında model izleme</li>
+            </ul>
+          </div>
+          <div class="job-apply">
+            <a href="iletisim.html" class="btn btn-primary">Hemen Başvur →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <div class="accordion-trigger-left">
+            <span class="accordion-title">Ürün Yöneticisi (ERP)</span>
+            <div class="accordion-tags">
+              <span class="badge badge-yellow">Ürün</span>
+              <span class="badge badge-gray">İstanbul / Hibrit</span>
+              <span class="badge badge-green">Tam Zamanlı</span>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <div class="job-detail">
+            <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">Logo ERP'nin üretim modülünden sorumlu olacak, kullanıcı ihtiyaçlarını derinlemesine anlayan bir Ürün Yöneticisi arıyoruz.</p>
+            <h4>Aranan Nitelikler</h4>
+            <ul>
+              <li>3+ yıl B2B ürün yönetimi deneyimi</li>
+              <li>ERP veya kurumsal yazılım sektör bilgisi</li>
+              <li>Veri odaklı karar verme yetkinliği</li>
+              <li>Mükemmel yazılı ve sözlü iletişim becerisi</li>
+            </ul>
+            <h4>Sorumluluklar</h4>
+            <ul>
+              <li>Ürün yol haritasının tanımlanması ve sahiplenilmesi</li>
+              <li>Müşteri araştırması ve kullanıcı hikayesi yazımı</li>
+              <li>Mühendislik ve tasarım ekipleriyle sprint yönetimi</li>
+            </ul>
+          </div>
+          <div class="job-apply">
+            <a href="iletisim.html" class="btn btn-primary">Hemen Başvur →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <div class="accordion-trigger-left">
+            <span class="accordion-title">İK Uzmanı</span>
+            <div class="accordion-tags">
+              <span class="badge badge-blue">İnsan Kaynakları</span>
+              <span class="badge badge-gray">İstanbul</span>
+              <span class="badge badge-green">Tam Zamanlı</span>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <div class="job-detail">
+            <p style="color:var(--gray-600);line-height:1.7;margin-bottom:1rem">İK ekibimizde işe alım, onboarding ve çalışan deneyimi alanlarında çalışacak bir uzman arıyoruz.</p>
+            <h4>Aranan Nitelikler</h4>
+            <ul>
+              <li>2+ yıl İK deneyimi (teknoloji sektörü tercih nedeni)</li>
+              <li>İşe alım ve mülakat teknikleri bilgisi</li>
+              <li>Logo veya benzer İK yazılımı kullanım deneyimi</li>
+            </ul>
+            <h4>Sorumluluklar</h4>
+            <ul>
+              <li>Teknik ve operasyonel pozisyonlar için işe alım</li>
+              <li>Onboarding süreçlerinin koordinasyonu</li>
+              <li>Çalışan memnuniyeti anketleri ve aksiyon planları</li>
+            </ul>
+          </div>
+          <div class="job-apply">
+            <a href="iletisim.html" class="btn btn-primary">Hemen Başvur →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIFE AT LOGO -->
+<section style="background:#fff">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:3rem">
+      <span class="section-label">Logo'da Hayat</span>
+      <h2 class="section-title">Birlikte Çalışmak Nasıl?</h2>
+    </div>
+    <div class="life-grid reveal">
+      <div class="life-item wide">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&auto=format&fit=crop" alt="Takım" />
+      </div>
+      <div class="life-item">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=400&auto=format&fit=crop" alt="Etkinlik" />
+      </div>
+      <div class="life-item">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=400&auto=format&fit=crop" alt="Eğitim" />
+      </div>
+      <div class="life-item">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=400&auto=format&fit=crop" alt="Ofis" />
+      </div>
+      <div class="life-item wide">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&auto=format&fit=crop" alt="Toplantı" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--red);padding:5rem 0;text-align:center">
+  <div class="container reveal">
+    <h2 style="font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;color:#fff;margin-bottom:1rem">Doğru Pozisyonu Bulamadın mı?</h2>
+    <p style="color:rgba(255,255,255,.8);font-size:1.1rem;max-width:520px;margin:0 auto 2rem;line-height:1.7">Açık başvuru ile özgeçmişini bırak, seni tanıyalım. Uygun bir pozisyon açıldığında hemen sana ulaşalım.</p>
+    <a href="iletisim.html" class="btn btn-white btn-lg">Açık Başvuru Gönder →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">LOGO<span>Yazılım</span></div>
+        <p>Türkiye'nin öncü kurumsal yazılım şirketi. 1984'ten bugüne işletmelerin dijital dönüşümüne liderlik ediyoruz.</p>
+      </div>
+      <div><h3>Ürünler</h3><ul><li><a href="urunler.html">Logo ERP</a></li><li><a href="urunler.html">Logo GO</a></li><li><a href="urunler.html">Logo Tiger</a></li><li><a href="urunler.html">Logo Mind</a></li><li><a href="urunler.html">Logo İnsan Kaynakları</a></li></ul></div>
+      <div><h3>Hızlı Linkler</h3><ul><li><a href="hakkimizda.html">Hakkımızda</a></li><li><a href="haberler.html">Haberler</a></li><li><a href="kariyer.html">Kariyer</a></li><li><a href="iletisim.html">İletişim</a></li></ul></div>
+      <div><h3>İletişim</h3><address><p>İstanbul Teknopark, Gebze, Kocaeli, Türkiye</p><p style="margin-top:.75rem"><a href="tel:+902626488000">+90 262 648 80 00</a></p><p><a href="mailto:info@logo.com.tr">info@logo.com.tr</a></p></address></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Logo Yazılım. Tüm hakları saklıdır. Bu site eğitim amaçlıdır.</p>
+      <div class="footer-bottom-links"><a href="#">Gizlilik Politikası</a><a href="#">Kullanım Şartları</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
